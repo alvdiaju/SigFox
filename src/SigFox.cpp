@@ -633,8 +633,6 @@ void SIGFOXClass::setMode(Country EUMode, TxRxMode tx_rx)
 
 void SIGFOXClass::end()
 {
-  pinMode(poweron_pin, LOW);
-  delay(1);
   digitalWrite(chip_select_pin, LOW);
   delay(1);
   spi_port->beginTransaction(SPICONFIG);
@@ -643,6 +641,9 @@ void SIGFOXClass::end()
   delay(1);
   digitalWrite(chip_select_pin, HIGH);
   delay(1);
+  // Switch off power supply to Sigfox module
+  delay(1);
+  digitalWrite(poweron_pin, LOW);
 }
 
 SIGFOXClass SigFox; //singleton
